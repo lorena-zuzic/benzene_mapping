@@ -21,11 +21,11 @@ Make sure that the benzenes are not embedded in the membrane or in the protein i
 
 Next, we need to generate a benzene topology .itp file which will contain information for all benzenes in a system (treated as a single molecule). The reason for this is for us to be able to add exclusions into the topology file.
 
-echo "q" | gmx make_ndx -f protein_50bnzv.gro -o index.ndx
-
 echo "BNZV" | gmx editconf -f protein_50bnzv.gro -n index.ndx -o 50bnzv.gro 
 
-echo "1 1" | gmx pdb2gmx -f 50bnzv.gro -p Benzene_1.itp -i posre_Benzene_50.itp -o 50bnzv.gro
+echo "1 1" | gmx pdb2gmx -f 50bnzv.gro -p Benzene_50.top -i posre_Benzene_50.itp -o 50bnzv.gro
+
+We need to edit Benzene_50.top topology file by excluding forcefiled parameters (these should be specified in a main topology file), water and ion parameters, and [ system ] and [ molecules ] sections. We also need to include [ virtual_sitesn ] and [ exclusions ]. 
 
 
 
