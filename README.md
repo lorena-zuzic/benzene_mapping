@@ -4,7 +4,7 @@ Implementation instructions for a benzene mapping method for uncovering cryptic 
 ## Overview
 This file explains how to set up simulations for detecting cryptic pockets in your proteins of interest, especially if they are membrane-bound. It has been tested for simulations performed in Gromacs with charmm36 force field, with modified benzene probes and membranes composed out of POPC, POPE, and POPS lipids. The same methodology, however, is generally applicable to different probes, lipid types and force fields (but it requires preliminary testing). 
 
-## Citing
+## Citation
 If you use this method, please cite: 
 Zuzic, L., Marzinek, J. K., Warwicker, J., Bond, P. J. (2020)
 A benzene-mapping approach for uncovering cryptic pockets in membrane-bound proteins. Under review.
@@ -26,6 +26,16 @@ echo "BNZV" | gmx editconf -f protein_50bnzv.gro -n index.ndx -o 50bnzv.gro
 echo "1 1" | gmx pdb2gmx -f 50bnzv.gro -p Benzene_50.top -i posre_Benzene_50.itp -o 50bnzv.gro
 
 We need to edit Benzene_50.top topology file by excluding forcefiled parameters (these should be specified in a main topology file), water and ion parameters, and [ system ] and [ molecules ] sections. We also need to include [ virtual_sitesn ] and [ exclusions ]. 
+
+To generate virtual sites, use a vs_gen.py script:
+
+python vs_gen.py 50
+
+Copy script output and insert it into Benzene_50.top file.
+
+To generate exclusions, 
+
+Finally, don't forget to include Benzene_50.top into your main topology file (topol.top).
 
 
 
