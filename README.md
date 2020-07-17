@@ -6,7 +6,10 @@ This file explains how to set up simulations for detecting cryptic pockets in yo
 
 ## Citing
 If you use this method, please cite: 
+Zuzic, L., Marzinek, J. K., Warwicker, J., Bond, P. J. (2020)
+A benzene-mapping approach for uncovering cryptic pockets in membrane-bound proteins. Under review.
 
+## Force field modification
 
 ## Benzene probes
 
