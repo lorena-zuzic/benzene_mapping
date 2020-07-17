@@ -10,10 +10,19 @@ Zuzic, L., Marzinek, J. K., Warwicker, J., Bond, P. J. (2020)
 A benzene-mapping approach for uncovering cryptic pockets in membrane-bound proteins. Under review.
 
 ## Force field modification
+A first step is to 
 
 ## Benzene probes
 A coordinate file of a benzene probe with a central virtual site can be found in benzene_vs.pdb. To insert a desired number of benzene molecules (e.g. 50) into a simulation box, use:
+
 gmx insert-molecules -f protein.gro -ci benzene_vs.pdb -nmol 50 -scale 0.9 -o protein_50bnz.gro
+
+Make sure that the benzenes are not embedded in the membrane or in the protein interior!
+
+Next, we need to generate a benzene topology .itp file which will contain information for all benzenes in a system (treated as a single molecule). The reason for this is for us to be able to add exclusions into the topology file.
+
+echo "q" | gmx make_ndx -f protein_50bnzv.gro -o index.ndx
+echo "BNZV" | gmx editconf -f protein_50bnzv.gro -n index.ndx -o 50bnzv.gro 
 
 
 ## To upload:
