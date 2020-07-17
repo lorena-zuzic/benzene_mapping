@@ -12,4 +12,9 @@ A benzene-mapping approach for uncovering cryptic pockets in membrane-bound prot
 ## Force field modification
 
 ## Benzene probes
+A coordinate file of a benzene probe with a central virtual site can be found in benzene_vs.pdb. To insert a desired number of benzene molecules (e.g. 50) into a simulation box, use:
+gmx insert-molecules -f protein.gro -ci benzene_vs.pdb -nmol 50 -scale 0.9 -o protein_50bnz.gro
 
+
+## To upload:
+benzene_vs.pdb
