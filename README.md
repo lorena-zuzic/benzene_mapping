@@ -33,10 +33,13 @@ python vs_gen.py 50
 
 Copy script output and insert it into Benzene_50.top file.
 
-To generate exclusions, 
+To generate exclusions, use exclusions_scr.R script. Note, this step might take a while.
+
+Rscript exclusions_scr.R 50
+
+Copy script output and insert it into Benzene_50.top file.
 
 Finally, don't forget to include Benzene_50.top into your main topology file (topol.top).
-
 
 
 
@@ -44,3 +47,5 @@ Finally, don't forget to include Benzene_50.top into your main topology file (to
 
 ## To upload:
 benzene_vs.pdb
+vs_gen.py
+excl_scr.R 
