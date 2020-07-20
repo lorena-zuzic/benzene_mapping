@@ -14,9 +14,9 @@ First, we need to modify our force field to include:
 
 a) benzene molecule with a central virtual site in the .rtp file
 
-b) a virtual site defined as an atom type
+b) a virtual site (VS) defined as an atom type
 
-c) a new atom type that will be present only in lipids and will act as a repulsion point
+c) a new atom type that will act as a repulsion point
 
 d) modified lipids that contain a new atom type
 
@@ -26,9 +26,16 @@ f) repulsions between lipids and benzene virtual sites
 
 ### 1a) benzene molecule with a central virtual site in the .rtp file
 
-Add bnzv.rtp in the force field folder. It will be read in addition to an already present merged.rtp file. Gromacs will recognise benzene under the name BNZV (denoting BeNZene + Virtual site).
+Add bnzv.rtp in the force field folder. It will be read in addition to the already present merged.rtp file. Benzene will be recognised under the name BNZV (denoting BeNZene with a Virtual site).
 
-### 1b) a virtual site defined as an atom type
+### 1b) a virtual site (VS) defined as an atom type
+Add the line in the atomtypes.atp file:
+
+VS          0.000000      ; Virtual site for BNZV
+
+### 1c) a new atom type that will act as a repulsion point
+
+A choice of a lipid repulsion point is a critical step which ensures that benzene remains outside the simulated membrane. The method has been verified for the repulsion points placed on OBL or PL atom types of membrane lipids. However, if these atoms are not present in your lipid system, you will have to choose another atom that appears in all membrane components. If this is the case, testing benzene behaviour in the presence of a smaller membrane is a necessity! In the case of a POPC/POPE/POPS membrane, OBL is a good choice as a repulsion point (for details, see Zuzic et al. 2020).
 
 
 
