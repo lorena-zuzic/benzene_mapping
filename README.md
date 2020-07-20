@@ -10,7 +10,29 @@ Zuzic, L., Marzinek, J. K., Warwicker, J., Bond, P. J. (2020)
 A benzene-mapping approach for uncovering cryptic pockets in membrane-bound proteins. Under review.
 
 ## 1) Force field modification
-First, we need to modify our force field to include a) repulsions between benzene virtual sites; b) new atom type that has all the 
+First, we need to modify our force field to include: 
+
+a) benzene molecule with a central virtual site in the .rtp file
+
+b) a virtual site defined as an atom type
+
+c) a new atom type that will be present only in lipids and will act as a repulsion point
+
+d) modified lipids that contain a new atom type
+
+e) repulsions between benzene virtual sites
+
+f) repulsions between lipids and benzene virtual sites
+
+### 1a) benzene molecule with a central virtual site in the .rtp file
+
+Add bnzv.rtp in the force field folder. It will be read in addition to an already present merged.rtp file. Gromacs will recognise benzene under the name BNZV (denoting BeNZene + Virtual site).
+
+### 1b) a virtual site defined as an atom type
+
+
+
+Don't forget to place this modified force field in the same folder where you will be creating your simulation system.
 
 ## 2) Benzene probes
 A coordinate file of a benzene probe with a central virtual site can be found in benzene_vs.pdb. To insert a desired number of benzene molecules (e.g. 50) into a simulation box, use:
@@ -48,4 +70,5 @@ Finally, don't forget to include Benzene_50.top into your main topology file (to
 ## To upload:
 benzene_vs.pdb
 vs_gen.py
-excl_scr.R 
+exclusions_scr.R 
+bnzv.rtp
