@@ -2,7 +2,7 @@
 Implementation instructions for a benzene mapping method for uncovering cryptic pockets in membrane-bound proteins.
 
 ## Overview
-This file explains how to set up simulations for detecting cryptic pockets in your proteins of interest, especially if they are membrane-bound. It has been tested for simulations performed in Gromacs with charmm36 force field, with modified benzene probes and membranes composed out of POPC, POPE, and POPS lipids. The same methodology, however, is generally applicable to different probes, lipid types and force fields (but it requires preliminary testing). 
+This file contains instructions how to set up simulations for detecting cryptic pockets in proteins of interest, especially if they are membrane-bound. The method has been tested for simulations performed in Gromacs with charmm36 force field, with modified benzene probes and membranes composed out of POPC, POPE, and POPS lipids. The same methodology is generally applicable to different probes, lipid types and force fields (but it requires preliminary testing). 
 
 ## Citation
 If you use this method, please cite: 
@@ -22,11 +22,11 @@ d) modified lipids that contain a new atom type
 
 e) repulsions between benzene virtual sites
 
-f) repulsions between lipids and benzene virtual sites
+f) repulsions between lipid repulsion points and benzene virtual sites
 
 ### 1a) benzene molecule with a central virtual site in the .rtp file
 
-Add bnzv.rtp in the force field folder. It will be read in addition to the already present merged.rtp file. Benzene will be recognised under the name BNZV (denoting BeNZene with a Virtual site).
+Add bnzv.rtp into the force field folder. It will be read in addition to the already present merged.rtp file. Benzene will be recognised under the name BNZV (denoting BeNZene with a Virtual site).
 
 ### 1b) a virtual site (VS) defined as an atom type
 Add the line in the atomtypes.atp file:
@@ -35,11 +35,34 @@ VS          0.000000      ; Virtual site for BNZV
 
 ### 1c) a new atom type that will act as a repulsion point
 
-A choice of a lipid repulsion point is a critical step which ensures that benzene remains outside the simulated membrane. The method has been verified for the repulsion points placed on OBL or PL atom types of membrane lipids. However, if these atoms are not present in your lipid system, you will have to choose another atom that appears in all membrane components. If this is the case, testing benzene behaviour in the presence of a smaller membrane is a necessity! In the case of a POPC/POPE/POPS membrane, OBL is a good choice as a repulsion point (for details, see Zuzic et al. 2020).
+A choice of a lipid repulsion point is a critical step which ensures that benzene remains outside the simulated membrane. This method has been verified for repulsion points placed on OSL or PL atom types of membrane lipids. However, if these atoms are not present in your lipid system, you will have to choose another atom that appears in all membrane components. If this is the case, testing benzene behaviour in the presence of a smaller membrane is a necessity! We will use OSL atoms as our repulsion points because they are present in POPC, POPE, and POPS lipids as O21/O31 oxygen atoms (for details, see Zuzic et al. 2020). The new atom type is called ODM.
 
+Add the line in the atomtypes.atp file:
 
+ODM     15.99940 ; ester oxygen - acting as a repulsion site
 
-Don't forget to place this modified force field in the same folder where you will be creating your simulation system.
+Use the atom_modification_in_ff.R script on ffbonded.itp and ffnonbonded.itp files:
+
+Rscript atom_modification_in_ff.R ffbonded.itp OSL ODM
+
+Rscript atom_modification_in_ff.R ffnonbonded.itp OSL ODM
+
+Outputs are modified force field files ffbonded_modified.itp and ffnonbonded_modified.itp. If satisfied with the results, rename those files into ffbonded.itp and ffnonbonded.itp. The old files will be overwritten.
+
+### 1d) modified lipids that contain a new atom type
+
+Add pop_modified.rtp into the force field folder. If not using ODL as a point of repulsion, you will have to create this file by yourself by following the same principle (creating a new lipid type name to differentiate from the unmodified lipid; replacing old atom name with a new atom name). Modified lipids are named PODC, PODE, and PODS.
+
+### 1e-1f) repulsions between benzene virtual sites; repulsions between lipid repulsion points and benzene virtual sites
+
+Add lines at the bottom of ffnonbonded.itp file:
+
+[ nonbond_params ]
+; i     j       func    V(c6)   W(c12)
+VS      VS      1       0.45    0.008
+VS      ODM     1       1.20    0.008
+
+Finally, don't forget to place this modified force field folder in the same location where you will be creating your simulation system.
 
 ## 2) Benzene probes
 A coordinate file of a benzene probe with a central virtual site can be found in benzene_vs.pdb. To insert a desired number of benzene molecules (e.g. 50) into a simulation box, use:
@@ -79,3 +102,5 @@ benzene_vs.pdb
 vs_gen.py
 exclusions_scr.R 
 bnzv.rtp
+atom_modification_in_ff.R
+pop_modified.rtp
