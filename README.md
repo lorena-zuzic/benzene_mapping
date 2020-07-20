@@ -12,11 +12,11 @@ A benzene-mapping approach for uncovering cryptic pockets in membrane-bound prot
 ## 1) Force field modification
 First, we need to modify our force field to include: 
 
-a) benzene molecule with a central virtual site in the .rtp file
+a) a benzene topology with a central virtual site in the .rtp file
 
 b) a virtual site (VS) defined as an atom type
 
-c) a new atom type that will act as a repulsion point
+c) a new atom type that will act as a lipid repulsion point
 
 d) modified lipids that contain a new atom type
 
@@ -74,7 +74,7 @@ gmx insert-molecules -f protein.gro -ci benzene_vs.pdb -nmol 50 -scale 0.9 -o pr
 
 Make sure that the benzenes are not embedded in the membrane or in the protein interior!
 
-Next, we need to generate a benzene topology .itp file which will contain information for all benzenes in a system (treated as a single molecule). The reason for this is for us to be able to add exclusions into the topology file.
+Next, we need to generate a benzene topology file which will contain information for all benzenes in the system. They are treated as separate residues of a same "molecule" because this allows us to add exclusions into the topology file.
 
 echo "BNZV" | gmx editconf -f protein_50bnzv.gro -n index.ndx -o 50bnzv.gro 
 
@@ -96,9 +96,6 @@ Copy script output and insert it into Benzene_50.top file.
 
 Finally, don't forget to include Benzene_50.top into your main topology file (topol.top).
 
-
-
-## 3) 
 
 ## To upload:
 benzene_vs.pdb
