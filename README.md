@@ -54,7 +54,7 @@ echo "BNZV" | gmx editconf -f protein_50bnzv.gro -n index.ndx -o 50bnzv.gro
 
 echo "1 1" | gmx pdb2gmx -f 50bnzv.gro -p Benzene_50.top -i posre_Benzene_50.itp -o 50bnzv.gro
 
-We need to edit Benzene_50.top topology file by excluding forcefiled parameters (these should be specified in a main topology file), water and ion parameters, and [ system ] and [ molecules ] sections. We also need to include [ virtual_sitesn ] and [ exclusions ]. 
+We need to edit Benzene_50.top topology file by excluding force field parameters (these should be specified in a main topology file), water and ion parameters, and [ system ] and [ molecules ] sections. We also need to include [ virtual_sitesn ] and [ exclusions ]. 
 
 To generate virtual sites, use a vs_gen.py script:
 
