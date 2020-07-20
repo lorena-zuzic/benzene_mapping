@@ -58,8 +58,11 @@ Add pop_modified.rtp into the force field folder. If not using ODL as a point of
 Add lines at the bottom of ffnonbonded.itp file:
 
 [ nonbond_params ]
+
 ; i     j       func    V(c6)   W(c12)
+
 VS      VS      1       0.45    0.008
+
 VS      ODM     1       1.20    0.008
 
 Finally, don't forget to place this modified force field folder in the same location where you will be creating your simulation system.
