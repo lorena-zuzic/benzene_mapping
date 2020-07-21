@@ -2,7 +2,7 @@
 Implementation instructions for a benzene mapping method for uncovering cryptic pockets in membrane-bound proteins.
 
 ## Overview
-This file contains instructions how to set up simulations for detecting cryptic pockets in proteins of interest, especially if they are membrane-bound. The method has been tested for simulations performed in Gromacs with charmm36 force field, with modified benzene probes and membranes composed out of POPC, POPE, and POPS lipids. The same methodology is generally applicable to different probes, lipid types and force fields (but it requires preliminary testing). 
+This file contains instructions how to set up simulations for detecting cryptic pockets in proteins of interest, particularly if they are membrane-bound. The method has been tested for simulations performed in Gromacs with charmm36 force field, with modified benzene probes and membranes composed out of POPC, POPE, and POPS lipids. The same methodology is generally applicable for different probes, lipid types and force fields (but it requires additional testing). 
 
 ## Citation
 If you use this method, please cite: 
@@ -74,7 +74,7 @@ gmx insert-molecules -f protein.gro -ci benzene_vs.pdb -nmol 50 -scale 0.9 -o pr
 
 Make sure that the benzenes are not embedded in the membrane or in the protein interior!
 
-Next, we need to generate a benzene topology file which will contain information for all benzenes in the system. They are treated as separate residues of a same "molecule" because this allows us to add exclusions into the topology file.
+Next, we need to generate a benzene topology file which will contain information for all benzenes in the system. They are treated as separate residues of a same "molecule" because this allows us to add exclusions between different benzene molecules.
 
 echo "BNZV" | gmx editconf -f protein_50bnzv.gro -n index.ndx -o 50bnzv.gro 
 
@@ -95,12 +95,3 @@ Rscript exclusions_scr.R 50
 Copy script output and insert it into Benzene_50.top file.
 
 Finally, don't forget to include Benzene_50.top into your main topology file (topol.top).
-
-
-## To upload:
-benzene_vs.pdb
-vs_gen.py
-exclusions_scr.R 
-bnzv.rtp
-atom_modification_in_ff.R
-pop_modified.rtp
