@@ -24,7 +24,7 @@ e) repulsions between benzene virtual sites
 
 f) repulsions between lipid repulsion points and benzene virtual sites
 
-### 1a) benzene molecule with a central virtual site in the .rtp file
+### 1a) a benzene topology with a central virtual site in the .rtp file
 
 Add bnzv.rtp into the force field folder. It will be read in addition to the already present merged.rtp file. Benzene will be recognised under the name BNZV (denoting BeNZene with a Virtual site).
 
