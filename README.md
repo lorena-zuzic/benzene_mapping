@@ -88,10 +88,22 @@ python vs_gen.py 50
 
 Copy script output and insert it into Benzene_50.top file.
 
-To generate exclusions, use exclusions_scr.R script. Note, this step might take a while.
+To generate exclusions, use exclusions_scr.R script. Note, this step might take a while and can generate a very large output.
 
 Rscript exclusions_scr.R 50
 
 Copy script output and insert it into Benzene_50.top file.
 
 Finally, don't forget to include Benzene_50.top into your main topology file (topol.top).
+
+## 3) Customising parameters for different membrane compositions
+
+In most cases, your membrane composition will not be identical to ours (POPC/POPE/POPS in 6:3:1 ratio). Depending on the lipid types used, average gaps between lipid headgroups might be larger or smaller, which might affect the value of a sigma term that defines repulsive forces between probes and lipids (set at 1.20 nm in section 1e-1f). To quickly assess the size of lateral gaps between the lipids, place Mandy.sh and lipid_distances.R in the same folder and run:
+
+bash ./Mandy.sh -f md.xtc -s md.tpr -n index.ndx -o max_distance -x Voronoi_diagram
+
+-o: output prefix (.xvg)
+
+-x: Voronoi diagram prefix (.pdf)
+
+If the plotted result is fluctuating around 1.2 nm, the default sigma setting of 1.20 nm can be used. If the value is lower or higher, consider changing the sigma value accordingly. Finally, don't forget to test your parameters on a small membrane sample!  
