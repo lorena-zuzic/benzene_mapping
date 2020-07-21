@@ -7,9 +7,7 @@ This file contains instructions how to set up simulations for detecting cryptic 
 ## Citation
 If you use this method, please cite: 
 
-Zuzic, L., Marzinek, J. K., Warwicker, J., Bond, P. J. (2020)
-
-A benzene-mapping approach for uncovering cryptic pockets in membrane-bound proteins. Under review.
+Zuzic, L., Marzinek, J. K., Warwicker, J., Bond, P. J. (2020) A benzene-mapping approach for uncovering cryptic pockets in membrane-bound proteins. Under review.
 
 ## 1) Force field modification
 First, we need to modify our force field to include: 
