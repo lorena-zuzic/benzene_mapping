@@ -2,7 +2,7 @@
 Implementation instructions for a benzene mapping method for uncovering cryptic pockets in membrane-bound proteins.
 
 ## Overview
-This file contains instructions how to set up simulations for detecting cryptic pockets in proteins of interest, particularly if they are membrane-bound. The method has been tested for simulations performed in Gromacs with charmm36 force field, with modified benzene probes and membranes composed out of POPC, POPE, and POPS lipids. The same methodology is generally applicable for different probes, lipid types and force fields (but it requires additional testing). 
+This file contains instructions how to set up simulations for detecting cryptic pockets in proteins of interest, particularly if they are membrane-bound. The method has been tested for simulations performed in Gromacs with CHARMM36 force field, with modified benzene probes and membranes composed out of POPC, POPE, and POPS lipids. The same methodology is generally applicable for different probes, lipid types and force fields (but it requires additional testing). 
 
 ## Citation
 If you use this method, please cite: 
@@ -35,7 +35,7 @@ VS          0.000000      ; Virtual site for BNZV
 
 ### 1c) a new atom type that will act as a repulsion point
 
-A choice of a lipid repulsion point is a critical step which ensures that benzene remains outside the simulated membrane. This method has been verified for repulsion points placed on OSL or PL atom types of membrane lipids. However, if these atoms are not present in your lipid system, you will have to choose another atom that appears in all membrane components. If this is the case, testing benzene behaviour in the presence of a smaller membrane is a necessity! We will use OSL atoms as our repulsion points because they are present in POPC, POPE, and POPS lipids as O21/O31 oxygen atoms (for details, see Zuzic et al. 2020). The new atom type is called ODM.
+The choice of a lipid repulsion point is a critical step which ensures that benzene probes remain outside the membrane during the course of a simulation. This method has been verified for repulsion points placed on OSL or PL atom types of membrane lipids. However, if these atoms are not present in your lipid system, you will have to choose another atom that appears in all membrane components. If this is the case, testing benzene behaviour in the presence of a smaller membrane is a necessity! We will use OSL atoms as our repulsion points because they are present in POPC, POPE, and POPS lipids as O21/O31 oxygen atoms (for details, see Zuzic et al. 2020). We will call the new atom type ODM.
 
 Add the line in the atomtypes.atp file:
 
@@ -47,11 +47,11 @@ Rscript atom_modification_in_ff.R ffbonded.itp OSL ODM
 
 Rscript atom_modification_in_ff.R ffnonbonded.itp OSL ODM
 
-Outputs are modified force field files ffbonded_modified.itp and ffnonbonded_modified.itp. If satisfied with the results, rename those files into ffbonded.itp and ffnonbonded.itp. The old files will be overwritten.
+Outputs are modified force field files ffbonded_modified.itp and ffnonbonded_modified.itp. If satisfied with the results, rename those files into ffbonded.itp and ffnonbonded.itp. Old files will be overwritten.
 
 ### 1d) modified lipids that contain a new atom type
 
-Add pop_modified.rtp into the force field folder. If not using ODL as a point of repulsion, you will have to create this file by yourself by following the same principle (creating a new lipid type name to differentiate from the unmodified lipid; replacing old atom name with a new atom name). Modified lipids are named PODC, PODE, and PODS.
+Add pop_modified.rtp into the force field folder. If not using POPC/POPE/POPS lipids or ODL as a point of repulsion, you will have to create this file by yourself by following the same principle (creating a new lipid type name to differentiate from the unmodified lipid; replacing old atom name with a new atom name). In our case, modified lipids are named PODC, PODE, and PODS.
 
 ### 1e-1f) repulsions between benzene virtual sites; repulsions between lipid repulsion points and benzene virtual sites
 
@@ -94,7 +94,7 @@ Rscript exclusions_scr.R 50
 
 Copy script output and insert it into Benzene_50.top file.
 
-Finally, don't forget to include Benzene_50.top into your main topology file (topol.top).
+Finally, include Benzene_50.top into your main topology file (topol.top).
 
 ## 3) Customising parameters for different membrane compositions
 
