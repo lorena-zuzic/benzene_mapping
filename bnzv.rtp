@@ -1,0 +1,41 @@
+[ bondedtypes ]
+; Col 1: Type of bond
+; Col 2: Type of angles
+; Col 3: Type of proper dihedrals
+; Col 4: Type of improper dihedrals
+; Col 5: Generate all dihedrals if 1, only heavy atoms of 0.
+; Col 6: Number of excluded neighbors for nonbonded interactions
+; Col 7: Generate 1,4 interactions between pairs of hydrogens if 1
+; Col 8: Remove propers over the same bond as an improper if it is 1
+; bonds  angles  dihedrals      impropers all_dihedrals nrexcl HH14 RemoveDih
+         1               5                      9                2                1                       3              1         0
+
+[ BNZV ]
+  [ atoms ]
+           C1 CG2R61   -0.115  0
+           H1 HGR61     0.115  1
+           C2 CG2R61   -0.115  2
+           H2 HGR61     0.115  3
+           C3 CG2R61   -0.115  4
+           H3 HGR61     0.115  5
+           C4 CG2R61   -0.115  6
+           H4 HGR61     0.115  7
+           C5 CG2R61   -0.115  8
+           H5 HGR61     0.115  9
+           C6 CG2R61   -0.115 10
+           H6 HGR61     0.115 11
+           VS VS        0.0   12
+  [ bonds ]
+          C1    H1
+          C1    C6
+          C1    C2
+          C2    H2
+          C2    C3
+          C3    H3
+          C3    C4
+          C4    C5
+          C4    H4
+          C5    H5
+          C5    C6
+          C6    H6
+
